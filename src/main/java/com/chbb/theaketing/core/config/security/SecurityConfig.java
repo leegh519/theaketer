@@ -1,4 +1,4 @@
-package com.chbb.theaketer.core.config.security;
+package com.chbb.theaketing.core.config.security;
 
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -43,7 +43,9 @@ public class SecurityConfig {
                         .requestMatchers(AntPathRequestMatcher.antMatcher("/api/*/*/auth/**"))
                         .permitAll()
                         .anyRequest()
-                        .authenticated())
+                        .permitAll())
+                // .anyRequest()
+                // .authenticated())
                 .exceptionHandling(
                         exceptionHandlingCustomizer -> exceptionHandlingCustomizer
                                 .accessDeniedHandler(accessHandler)

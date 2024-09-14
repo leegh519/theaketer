@@ -1,4 +1,4 @@
-package com.chbb.theaketer.core.config.swagger;
+package com.chbb.theaketing.core.config.swagger;
 
 import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
@@ -35,9 +35,9 @@ public class SwaggerConfig {
     @Bean
     OpenAPI openApi() {
         Info info = new Info()
-                .title("티케터")
+                .title("티케팅")
                 .version("1.0.0")
-                .description("티케터 api");
+                .description("티케팅 api");
         SecurityScheme auth = new SecurityScheme()
                 .type(SecurityScheme.Type.APIKEY)
                 .in(SecurityScheme.In.COOKIE)

@@ -1,4 +1,4 @@
-package com.chbb.theaketer.core.config.security;
+package com.chbb.theaketing.core.config.security;
 
 import java.io.IOException;
 
