@@ -39,32 +39,4 @@ public class SignUpDto {
         protected String phone;
     }
 
-    @Getter
-    @Schema(description = "회원가입 응답")
-    @NoArgsConstructor
-    public static class SignUpRes {
-        @Schema(description = "ID", example = "1")
-        @NonNull
-        private Integer id;
-
-        @Schema(description = "이메일", example = "abc@abc.com")
-        @NonNull
-        private String email;
-
-        @Schema(description = "이름", example = "아무개")
-        @NonNull
-        private String name;
-
-        @Schema(description = "휴대폰 번호", example = "01012345678")
-        @NonNull
-        private String phone;
-
-        @Builder
-        public SignUpRes(Integer id, String email, String name, String phone) {
-            this.id = id;
-            this.email = email;
-            this.name = name;
-            this.phone = phone;
-        }
-    }
 }
