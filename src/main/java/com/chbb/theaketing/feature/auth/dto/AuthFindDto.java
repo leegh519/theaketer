@@ -18,7 +18,7 @@ public class AuthFindDto {
     public static class AuthFindReq {
 
         @Email(message = "이메일 형식이 아닙니다")
-        @Schema(description = "이메일", requiredMode = RequiredMode.REQUIRED, example = "abc@abc.com")
+        @Schema(description = "이메일", requiredMode = RequiredMode.REQUIRED, example = "ghkstoo@naver.com")
         @NonNull
         protected String email;
 

@@ -9,7 +9,7 @@ import com.chbb.theaketing.core.util.AuthCodeGenerator;
 import com.chbb.theaketing.feature.auth.dto.AuthDto;
 import com.chbb.theaketing.feature.common.exception.ErrorCode;
 import com.chbb.theaketing.feature.common.exception.TheaketingException;
-import com.chbb.theaketing.feature.common.redis.RedisService;
+import com.chbb.theaketing.feature.common.redis.RedisRepository;
 import com.chbb.theaketing.feature.mail.dto.MailDto;
 import com.chbb.theaketing.feature.mail.service.MailService;
 
@@ -24,7 +24,7 @@ public class EmailVerifyService {
 
     private final MailService mailService;
 
-    private final RedisService redisService;
+    private final RedisRepository redisRepository;
 
     private static final long EXPIRE_DURATION = 5; // 만료 시간: 5분
 
@@ -66,17 +66,17 @@ public class EmailVerifyService {
 
     // 이메일과 인증번호를 Redis에 저장
     private void saveAuthCode(String email, String code) {
-        redisService.setValue(email, code, EXPIRE_DURATION, TimeUnit.MINUTES);
+        redisRepository.setValue(email, code, EXPIRE_DURATION, TimeUnit.MINUTES);
     }
 
     // 이메일과 인증상태를 Redis에 저장
     private void saveAuthStatus(String email) {
-        redisService.setValue(email, "true", 1, TimeUnit.HOURS);
+        redisRepository.setValue(email, "true", 1, TimeUnit.HOURS);
     }
 
     // Redis에서 인증번호 조회
     private String getAuthCode(String email) {
-        return redisService.getValue(email);
+        return redisRepository.getValue(email);
     }
 
 }

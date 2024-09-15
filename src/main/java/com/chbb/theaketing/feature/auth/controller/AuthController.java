@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.chbb.theaketing.feature.auth.dto.AuthDto;
 import com.chbb.theaketing.feature.auth.dto.AuthFindDto;
 import com.chbb.theaketing.feature.auth.dto.SignUpDto;
+import com.chbb.theaketing.feature.auth.service.AuthService;
 import com.chbb.theaketing.feature.auth.service.EmailVerifyService;
 import com.chbb.theaketing.feature.user.dto.UserDto;
 
@@ -26,18 +27,19 @@ public class AuthController {
 
     private final EmailVerifyService emailVerifyService;
 
+    private final AuthService authService;
+
     @PostMapping("/u/v1/signup")
     @Operation(summary = "회원가입", description = "회원가입")
-    public UserDto.UserInfo signup(@RequestBody @Valid SignUpDto.SignUpReq req) throws Exception {
-        // TODO 회원가입 로직
-        return new UserDto.UserInfo();
+    public UserDto.UserInfo signUp(@RequestBody @Valid SignUpDto.SignUpReq req) throws Exception {
+        return authService.signUp(req);
     }
 
     @PostMapping("/u/v1/login")
     @Operation(summary = "로그인", description = "로그인")
     public UserDto.UserInfo login(@RequestBody @Valid AuthDto.LoginReq req) throws Exception {
-        // TODO 로그인 로직
-        return new UserDto.UserInfo();
+
+        return authService.login(req);
     }
 
     @PostMapping("/u/v1/auth")

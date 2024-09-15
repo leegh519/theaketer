@@ -6,8 +6,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.chbb.theaketing.feature.reservation.dto.ReservationDto;
-import com.chbb.theaketing.feature.reservation.dto.ReservationDto.ReservationRes;
 import com.chbb.theaketing.feature.user.dto.UserDto;
 
 import io.swagger.v3.oas.annotations.Operation;
