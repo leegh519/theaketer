@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.chbb.theaketing.feature.auth.dto.AuthDto;
 import com.chbb.theaketing.feature.auth.dto.AuthFindDto;
 import com.chbb.theaketing.feature.auth.dto.SignUpDto;
+import com.chbb.theaketing.feature.user.dto.UserDto;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -22,16 +23,16 @@ public class AuthController {
 
     @PostMapping("/u/v1/signup")
     @Operation(summary = "회원가입", description = "회원가입")
-    public SignUpDto.SignUpRes signup(@RequestBody @Valid SignUpDto.SignUpReq req) {
+    public UserDto.UserInfo signup(@RequestBody @Valid SignUpDto.SignUpReq req) {
         // TODO 회원가입 로직
-        return new SignUpDto.SignUpRes();
+        return new UserDto.UserInfo();
     }
 
     @PostMapping("/u/v1/login")
     @Operation(summary = "로그인", description = "로그인")
-    public SignUpDto.SignUpRes login(@RequestBody @Valid AuthDto.LoginReq req) {
+    public UserDto.UserInfo login(@RequestBody @Valid AuthDto.LoginReq req) {
         // TODO 로그인 로직
-        return new SignUpDto.SignUpRes();
+        return new UserDto.UserInfo();
     }
 
     @PostMapping("/u/v1/auth")
