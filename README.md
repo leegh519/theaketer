@@ -1,5 +1,5 @@
 # Theaketing
-
+theater + ticketing   
 연극 예매 서비스 사이드 프로젝트입니다.
 
 ### 개발환경
