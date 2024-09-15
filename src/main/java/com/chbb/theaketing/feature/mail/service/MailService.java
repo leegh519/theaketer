@@ -1,6 +1,5 @@
 package com.chbb.theaketing.feature.mail.service;
 
-import org.springframework.mail.MailAuthenticationException;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;

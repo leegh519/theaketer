@@ -18,7 +18,7 @@ public class AuthDto {
     public static class EmailAuthReq {
 
         @Email(message = "이메일 형식이 아닙니다")
-        @Schema(description = "이메일", requiredMode = RequiredMode.REQUIRED, example = "abc@abc.com")
+        @Schema(description = "이메일", requiredMode = RequiredMode.REQUIRED, example = "ghkstoo@naver.com")
         @NonNull
         protected String email;
     }
@@ -29,7 +29,7 @@ public class AuthDto {
     public static class LoginReq {
 
         @NotBlank(message = "이메일을 입력해주세요")
-        @Schema(description = "이메일", requiredMode = RequiredMode.REQUIRED, example = "abc@abc.com")
+        @Schema(description = "이메일", requiredMode = RequiredMode.REQUIRED, example = "ghkstoo@naver.com")
         @NonNull
         protected String email;
 
@@ -45,7 +45,7 @@ public class AuthDto {
     public static class EmailAuthCheckReq {
 
         @Email(message = "이메일 형식이 아닙니다")
-        @Schema(description = "이메일", requiredMode = RequiredMode.REQUIRED, example = "abc@abc.com")
+        @Schema(description = "이메일", requiredMode = RequiredMode.REQUIRED, example = "ghkstoo@naver.com")
         @NonNull
         protected String email;
 

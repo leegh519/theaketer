@@ -6,17 +6,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public enum ErrorCode {
 
     // Common
-    INVALID_INPUT_VALUE(400, "C001", " Invalid Input Value"),
-    METHOD_NOT_ALLOWED(405, "C002", " Invalid Input Value"),
-    ENTITY_NOT_FOUND(400, "C003", " Entity Not Found"),
-    INTERNAL_SERVER_ERROR(500, "C004", "Server Error"),
-    INVALID_TYPE_VALUE(400, "C005", " Invalid Type Value"),
-    HANDLE_ACCESS_DENIED(403, "C006", "Access is Denied"),
+    DATA_NOT_FOUND(400, "C001", "데이터가 존재하지 않습니다."),
+    NOT_NULL_PARAMETER(400, "C002", "파라미터가 null입니다."),
 
     // Auth
     EMAIL_SEND_ERROR(400, "M001", "메일 전송에 실패했습니다."),
     CODE_EXPIRED(400, "M002", "인증코드가 만료되었습니다."),
     WRONG_CODE(400, "M003", "인증코드가 일치하지 않습니다."),
+    NOT_EMAIL_AUTHENTICATE(400, "M004", "이메일 인증이 필요합니다."),
 
     ;
 

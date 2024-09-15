@@ -2,13 +2,14 @@ package com.chbb.theaketing.feature.auth.dto;
 
 import org.springframework.lang.NonNull;
 
+import com.chbb.theaketing.feature.user.entity.User;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -19,7 +20,7 @@ public class SignUpDto {
     public static class SignUpReq {
 
         @Email(message = "이메일 형식이 아닙니다")
-        @Schema(description = "이메일", requiredMode = RequiredMode.REQUIRED, example = "abc@abc.com")
+        @Schema(description = "이메일", requiredMode = RequiredMode.REQUIRED, example = "ghkstoo@naver.com")
         @NonNull
         protected String email;
 
@@ -37,6 +38,7 @@ public class SignUpDto {
         @Schema(description = "휴대폰 번호", requiredMode = RequiredMode.REQUIRED, example = "01012345678")
         @NonNull
         protected String phone;
+
     }
 
 }

@@ -22,7 +22,7 @@ public class UserDto {
     public static class UserUpdateReq {
 
         @Email(message = "이메일 형식이 아닙니다")
-        @Schema(description = "이메일", nullable = true, example = "abc@abc.com")
+        @Schema(description = "이메일", nullable = true, example = "ghkstoo@naver.com")
         @Nullable
         protected String email;
 
@@ -50,7 +50,7 @@ public class UserDto {
         @NonNull
         private Integer id;
 
-        @Schema(description = "이메일", example = "abc@abc.com")
+        @Schema(description = "이메일", example = "ghkstoo@naver.com")
         @NonNull
         private String email;
 

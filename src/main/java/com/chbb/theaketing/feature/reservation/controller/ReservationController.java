@@ -1,6 +1,5 @@
 package com.chbb.theaketing.feature.reservation.controller;
 
-import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chbb.theaketing.feature.common.pagination.Page;
-import com.chbb.theaketing.feature.drama.dto.DramaDto;
-import com.chbb.theaketing.feature.drama.dto.DramaDto.DramaListRes;
 import com.chbb.theaketing.feature.reservation.dto.ReservationDto;
 import com.chbb.theaketing.feature.reservation.dto.ReservationDto.ReservationRes;
 
