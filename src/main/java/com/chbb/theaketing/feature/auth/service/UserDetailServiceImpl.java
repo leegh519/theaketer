@@ -20,9 +20,6 @@ public class UserDetailServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         try {
             User user = userQueryService.findByEmail(username);
-            if (user == null) {
-                throw new UsernameNotFoundException("아이디나 비밀번호가 잘못되었습니다");
-            }
             return new UserDetailsImpl(user);
         } catch (Exception e) {
             e.printStackTrace();

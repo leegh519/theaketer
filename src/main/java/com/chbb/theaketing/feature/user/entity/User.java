@@ -1,5 +1,6 @@
 package com.chbb.theaketing.feature.user.entity;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import lombok.AccessLevel;
@@ -9,7 +10,9 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class User {
+public class User implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     protected Integer id;
 

@@ -36,12 +36,14 @@ public class Page<T> {
     }
 
     public Page(List<T> content, PageDto pageDto, long totalCount) {
-        // TODO content null 체크
-        // TODO pageDto null 체크
-        this.content = content;
-        this.itemSize = pageDto.getItemSize();
-        this.pageSize = pageDto.getPageSize();
-        this.pageNum = pageDto.getPageNum();
+        if (content != null) {
+            this.content = content;
+        }
+        if (pageDto != null) {
+            this.itemSize = pageDto.getItemSize();
+            this.pageSize = pageDto.getPageSize();
+            this.pageNum = pageDto.getPageNum();
+        }
         this.totalCount = totalCount;
     }
 

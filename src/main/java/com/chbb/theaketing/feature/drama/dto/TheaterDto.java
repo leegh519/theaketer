@@ -1,6 +1,7 @@
 package com.chbb.theaketing.feature.drama.dto;
 
 import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AccessLevel;
@@ -27,7 +28,7 @@ public class TheaterDto {
         protected String address;
 
         @Schema(description = "상세주소")
-        @NonNull
+        @Nullable
         protected String addressDetail;
 
         @Schema(description = "좌석수")

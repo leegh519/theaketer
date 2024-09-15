@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chbb.theaketing.feature.drama.mapper.DramaMapper">
+
+    <!-- TheaterInfo resultMap -->
+    <resultMap id="theater" type="com.chbb.theaketing.feature.drama.dto.TheaterDto$TheaterInfo">
+        <id property="id" column="theater_id"/>
+        <result property="name" column="theater_name"/>
+        <result property="address" column="theater_address"/>
+        <result property="addressDetail" column="theater_address_detail"/>
+        <result property="seatCount" column="theater_seat_count"/>
+    </resultMap>
+
+    <!-- dramaList resultMap -->
+    <resultMap id="dramaList" type="com.chbb.theaketing.feature.drama.dto.DramaDto$DramaListRes">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="thumbnailImage" column="thumbnail_image"/>
+        <result property="startDate" column="start_date"/>
+        <result property="endDate" column="end_date"/>
+        <collection property="theater" ofType="com.chbb.theaketing.feature.drama.dto.TheaterDto$TheaterInfo" resultMap="theater"/>
+    </resultMap>
+
+
+    <!-- paginate --> 
+    <select id="paginate" parameterType="com.chbb.theaketing.feature.drama.dto.DramaDto$DramaSearchReq"
+    resultMap="dramaList">
+        SELECT  d.id
+                ,d.title
+                ,d.thumbnail_image
+                ,d.start_date
+                ,d.end_date
+                ,t.id theater_id
+                ,t.name theater_name
+                ,t.address theater_address
+                ,t.address_detail theater_address_detail
+                ,t.seat_count theater_seat_count
+        FROM    drama d
+        JOIN    theater t
+            ON  d.theater_id = t.id
+        <if test="searchValue != null and searchValue != ''">
+        WHERE   d.title like CONCAT('%', #{searchValue}, '%')
+        </if>
+        ORDER BY d.start_date
+        LIMIT   #{itemSize}
+        OFFSET  #{offset}
+    </select>
+
+    <!-- count --> 
+    <select id="count" parameterType="com.chbb.theaketing.feature.drama.dto.DramaDto$DramaSearchReq"
+    resultType="long">
+        SELECT  COUNT(*)
+        FROM    drama d
+        JOIN    theater t
+            ON  d.theater_id = t.id
+        <if test="searchValue != null and searchValue != ''">
+        WHERE   d.title like CONCAT('%', #{searchValue}, '%')
+        </if>
+    </select>
+
+
+    
+</mapper>

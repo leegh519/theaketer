@@ -18,6 +18,7 @@ public class AccessHandler implements AccessDeniedHandler {
             AccessDeniedException accessDeniedException) throws IOException, ServletException {
 
         String url = request.getRequestURI().toString();
+        System.err.println(url);
         if (url.contains("api/")) {
             response.sendError(403, "권한이 없습니다");
             return;
