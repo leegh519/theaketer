@@ -29,7 +29,7 @@ public class DramaDto {
     }
 
     @Getter
-    @Schema(description = "연극 목록 dto")
+    @Schema(description = "연극 목록")
     @NoArgsConstructor
     public static class DramaListRes {
 
@@ -70,7 +70,7 @@ public class DramaDto {
     }
 
     @Getter
-    @Schema(description = "연극 상세 dto")
+    @Schema(description = "연극 상세")
     @NoArgsConstructor
     public static class DramaDetailRes {
 
@@ -128,6 +128,36 @@ public class DramaDto {
             this.closeDateTime = closeDateTime;
             this.limitCount = limitCount;
             this.descriptionImage = descriptionImage;
+        }
+    }
+
+    @Getter
+    @Schema(description = "예매 내역 연극 정보")
+    @NoArgsConstructor
+    public static class DramaReservationRes {
+
+        @Schema(description = "연극id")
+        @NonNull
+        protected Integer id;
+
+        @Schema(description = "연극이름")
+        @NonNull
+        protected String title;
+
+        @Schema(description = "썸네일 이미지")
+        @NonNull
+        protected String thumbnailImage;
+
+        @Schema(description = "극장")
+        @NonNull
+        protected TheaterDto.TheaterInfo theater;
+
+        @Builder
+        public DramaReservationRes(Integer id, String title, String thumbnailImage, TheaterInfo theater) {
+            this.id = id;
+            this.title = title;
+            this.thumbnailImage = thumbnailImage;
+            this.theater = theater;
         }
     }
 }
