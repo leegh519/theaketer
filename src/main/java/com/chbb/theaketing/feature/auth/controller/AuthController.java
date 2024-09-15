@@ -50,7 +50,7 @@ public class AuthController {
     @PostMapping("/u/v1/auth/check")
     @Operation(summary = "이메일 인증 확인", description = "이메일 인증 확인")
     public void emailAuthCheck(@RequestBody @Valid AuthDto.EmailAuthCheckReq req) throws Exception {
-        // TODO 이메일 인증 확인 로직
+        emailVerifyService.check(req);
         return;
     }
 

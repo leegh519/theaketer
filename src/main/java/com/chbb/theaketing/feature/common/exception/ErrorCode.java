@@ -13,8 +13,10 @@ public enum ErrorCode {
     INVALID_TYPE_VALUE(400, "C005", " Invalid Type Value"),
     HANDLE_ACCESS_DENIED(403, "C006", "Access is Denied"),
 
-    // Mail
+    // Auth
     EMAIL_SEND_ERROR(400, "M001", "메일 전송에 실패했습니다."),
+    CODE_EXPIRED(400, "M002", "인증코드가 만료되었습니다."),
+    WRONG_CODE(400, "M003", "인증코드가 일치하지 않습니다."),
 
     ;
 

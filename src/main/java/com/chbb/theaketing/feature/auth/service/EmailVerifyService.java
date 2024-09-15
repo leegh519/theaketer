@@ -2,13 +2,14 @@ package com.chbb.theaketing.feature.auth.service;
 
 import java.util.concurrent.TimeUnit;
 
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.mail.MailException;
 import org.springframework.stereotype.Service;
 
 import com.chbb.theaketing.core.util.AuthCodeGenerator;
+import com.chbb.theaketing.feature.auth.dto.AuthDto;
 import com.chbb.theaketing.feature.common.exception.ErrorCode;
 import com.chbb.theaketing.feature.common.exception.TheaketingException;
+import com.chbb.theaketing.feature.common.redis.RedisService;
 import com.chbb.theaketing.feature.mail.dto.MailDto;
 import com.chbb.theaketing.feature.mail.service.MailService;
 
@@ -23,22 +24,22 @@ public class EmailVerifyService {
 
     private final MailService mailService;
 
-    private final RedisTemplate<String, String> redisTemplate;
+    private final RedisService redisService;
 
     private static final long EXPIRE_DURATION = 5; // 만료 시간: 5분
 
-    public void send(String email) throws TheaketingException {
+    public void send(String email) throws Exception {
         String code = AuthCodeGenerator.generate(6);
 
         sendAuthCode(email, code);
         saveAuthCode(email, code);
-        log.info(getAuthCode(email));
+        log.info("인증코드: " + getAuthCode(email));
     }
 
-    public void sendAuthCode(String email, String code) throws TheaketingException {
+    public void sendAuthCode(String email, String code) throws Exception {
         MailDto mail = MailDto.builder()
                 .address(email)
-                .title("티케터 인증")
+                .title("티케터 인증코드")
                 .content("티케터 인증코드는 " + code + "입니다.")
                 .build();
         try {
@@ -52,18 +53,30 @@ public class EmailVerifyService {
         }
     }
 
+    public void check(AuthDto.EmailAuthCheckReq req) throws Exception {
+        String code = getAuthCode(req.getEmail());
+        if (code == null) {
+            throw new TheaketingException(ErrorCode.CODE_EXPIRED);
+        }
+        if (!req.getAuthNumber().equals(code)) {
+            throw new TheaketingException(ErrorCode.WRONG_CODE);
+        }
+        saveAuthStatus(req.getEmail());
+    }
+
     // 이메일과 인증번호를 Redis에 저장
     private void saveAuthCode(String email, String code) {
-        redisTemplate.opsForValue().set(email, code, EXPIRE_DURATION, TimeUnit.MINUTES);
+        redisService.setValue(email, code, EXPIRE_DURATION, TimeUnit.MINUTES);
+    }
+
+    // 이메일과 인증상태를 Redis에 저장
+    private void saveAuthStatus(String email) {
+        redisService.setValue(email, "true", 1, TimeUnit.HOURS);
     }
 
     // Redis에서 인증번호 조회
     private String getAuthCode(String email) {
-        return redisTemplate.opsForValue().get(email);
+        return redisService.getValue(email);
     }
 
-    // 인증번호 삭제
-    private void deleteAuthCode(String email) {
-        redisTemplate.delete(email);
-    }
 }
