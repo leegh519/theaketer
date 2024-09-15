@@ -15,25 +15,28 @@ import com.chbb.theaketing.feature.common.pagination.Page;
 import com.chbb.theaketing.feature.drama.dto.DramaDateTimeDto;
 import com.chbb.theaketing.feature.drama.dto.DramaDto;
 import com.chbb.theaketing.feature.drama.dto.DramaDto.DramaListRes;
+import com.chbb.theaketing.feature.drama.service.DramaService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping(path = "/api")
 @Tag(name = "연극", description = "연극 API")
 @Slf4j
+@RequiredArgsConstructor
 public class DramaController {
+
+    private final DramaService dramaService;
 
     @GetMapping("/u/v1/drama")
     @Operation(summary = "연극 목록 조회", description = "연극 목록 조회")
-    public Page<DramaListRes> paginate(@ParameterObject @Valid DramaDto.DramaSearchReq req) {
-        log.info("" + req.getItemSize());
-        // TODO 연극 목록 조회 로직
-        return new Page<DramaListRes>();
+    public Page<DramaListRes> paginate(@ParameterObject @Valid DramaDto.DramaSearchReq req) throws Exception {
+        return dramaService.paginate(req);
     }
 
     // 연극 상세 조회
