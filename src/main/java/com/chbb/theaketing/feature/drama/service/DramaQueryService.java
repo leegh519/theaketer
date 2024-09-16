@@ -26,7 +26,10 @@ public class DramaQueryService {
         return new Page<DramaListRes>(content, req, totalCount);
     }
 
-    public Drama findById(long id) throws Exception {
+    public Drama findById(Long id) throws Exception {
+        if (id == null) {
+            throw new TheaketingException(ErrorCode.NOT_NULL_PARAMETER);
+        }
         Drama drama = dramaMapper.findById(id);
         if (drama == null) {
             throw new TheaketingException(ErrorCode.DATA_NOT_FOUND);
