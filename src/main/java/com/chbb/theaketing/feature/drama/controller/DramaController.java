@@ -42,16 +42,16 @@ public class DramaController {
     // 연극 상세 조회
     @GetMapping("/u/v1/drama/{id}")
     @Operation(summary = "연극 상세 조회", description = "연극 상세 조회")
-    public DramaDto.DramaDetailRes fetch(@PathVariable @Min(value = 1, message = "연극 id값이 올바르지 않습니다") Integer id) {
-        // TODO 연극 상세 조회 로직
-        return new DramaDto.DramaDetailRes();
+    public DramaDto.DramaDetailRes fetch(@PathVariable @Min(value = 1, message = "연극 id값이 올바르지 않습니다") Long id)
+            throws Exception {
+        return dramaService.fetch(id);
     }
 
     // 연극 날짜 조회
     @GetMapping("/u/v1/drama/{id}/date")
     @Operation(summary = "연극 날짜 조회", description = "연극 날짜 조회")
     public List<DramaDateTimeDto.DramaDate> dramaDate(
-            @PathVariable @Min(value = 1, message = "연극 id값이 올바르지 않습니다") Integer id) {
+            @PathVariable @Min(value = 1, message = "연극 id값이 올바르지 않습니다") Long id) {
         // TODO 연극 날짜 조회 로직
         return new ArrayList<>();
     }
@@ -60,7 +60,7 @@ public class DramaController {
     @GetMapping("/u/v1/drama/{id}/{date}/time")
     @Operation(summary = "연극 회차 조회", description = "연극 회차 조회")
     public List<DramaDateTimeDto.DramaTime> dramaTime(
-            @PathVariable @Min(value = 1, message = "연극 id값이 올바르지 않습니다") Integer id,
+            @PathVariable @Min(value = 1, message = "연극 id값이 올바르지 않습니다") Long id,
             @PathVariable @DateTimeFormat(pattern = "yyyyMMdd") LocalDate date) {
         // TODO 연극 날짜 조회 로직
         return new ArrayList<>();

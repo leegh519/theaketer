@@ -14,7 +14,7 @@ public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    protected Integer id;
+    protected Long id;
 
     protected String email;
 
@@ -29,7 +29,7 @@ public class User implements Serializable {
     protected LocalDateTime withdrawalDate;
 
     @Builder
-    public User(Integer id, String email, String password, String name, String phone, LocalDateTime joinDate,
+    public User(Long id, String email, String password, String name, String phone, LocalDateTime joinDate,
             LocalDateTime withdrawalDate) {
         this.id = id;
         this.email = email;

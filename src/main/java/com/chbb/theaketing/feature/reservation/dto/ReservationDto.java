@@ -23,15 +23,15 @@ public class ReservationDto {
 
         @Schema(description = "연극 id", requiredMode = RequiredMode.REQUIRED)
         @Min(value = 1, message = "연극 정보가 잘못되었습니다")
-        protected Integer dramaId;
+        protected Long dramaId;
 
         @Schema(description = "회차 id", requiredMode = RequiredMode.REQUIRED)
         @Min(value = 1, message = "회차 정보가 잘못되었습니다")
-        protected Integer showTimeId;
+        protected Long showTimeId;
 
         @Schema(description = "예매 수량", requiredMode = RequiredMode.REQUIRED)
         @Min(value = 1, message = "티켓 수량이 잘못되었습니다")
-        protected Integer ticketCount;
+        protected Long ticketCount;
     }
 
     @Getter
@@ -41,13 +41,13 @@ public class ReservationDto {
 
         @Schema(description = "예매id")
         @NonNull
-        protected Integer id;
+        protected Long id;
 
         @Schema(description = "예매 수량")
-        protected Integer ticketCount;
+        protected Long ticketCount;
 
         @Schema(description = "가격")
-        protected Integer price;
+        protected Long price;
 
         // 시간정보
         @Schema(description = "회차")
@@ -68,7 +68,7 @@ public class ReservationDto {
 
         @Schema(description = "연극 회차 id")
         @NonNull
-        protected Integer id;
+        protected Long id;
 
         @Schema(description = "연극 날짜")
         @NonNull

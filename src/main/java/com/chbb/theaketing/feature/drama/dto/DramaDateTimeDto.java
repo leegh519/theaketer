@@ -33,7 +33,7 @@ public class DramaDateTimeDto {
 
         @Schema(description = "남은 좌석")
         @NonNull
-        protected Integer remainSeats;
+        protected Long remainSeats;
 
     }
 }
