@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.chbb.theaketing.feature.reservation.mapper.ReservationMapper">
+
+    <!-- insert --> 
+    <insert id="insert" parameterType="com.chbb.theaketing.feature.reservation.entity.Reservation"
+    useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO reservation
+            (user_id
+            ,drama_id
+            ,show_time_id
+            ,ticket_count)
+        VALUES
+            (#{userId}
+            ,#{dramaId}
+            ,#{showTimeId}
+            ,#{ticketCount})
+    </insert>
+    
+</mapper>

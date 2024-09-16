@@ -10,10 +10,13 @@ public enum ErrorCode {
     NOT_NULL_PARAMETER(400, "C002", "파라미터가 null입니다."),
 
     // Auth
-    EMAIL_SEND_ERROR(400, "M001", "메일 전송에 실패했습니다."),
-    CODE_EXPIRED(400, "M002", "인증코드가 만료되었습니다."),
-    WRONG_CODE(400, "M003", "인증코드가 일치하지 않습니다."),
-    NOT_EMAIL_AUTHENTICATE(400, "M004", "이메일 인증이 필요합니다."),
+    EMAIL_SEND_ERROR(400, "A001", "메일 전송에 실패했습니다."),
+    CODE_EXPIRED(400, "A002", "인증코드가 만료되었습니다."),
+    WRONG_CODE(400, "A003", "인증코드가 일치하지 않습니다."),
+    NOT_EMAIL_AUTHENTICATE(400, "A004", "이메일 인증이 필요합니다."),
+
+    // Reservation
+    RESERVATION_DUPLICATE(400, "R001", "예매 내역이 존재합니다."),
 
     ;
 

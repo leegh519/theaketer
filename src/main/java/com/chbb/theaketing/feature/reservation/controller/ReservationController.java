@@ -11,23 +11,28 @@ import org.springframework.web.bind.annotation.RestController;
 import com.chbb.theaketing.feature.common.pagination.Page;
 import com.chbb.theaketing.feature.reservation.dto.ReservationDto;
 import com.chbb.theaketing.feature.reservation.dto.ReservationDto.ReservationRes;
+import com.chbb.theaketing.feature.reservation.service.ReservationService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping(path = "/api")
 @Tag(name = "예매", description = "예매 API")
 @Slf4j
+@RequiredArgsConstructor
 public class ReservationController {
+
+    private final ReservationService reservationService;
 
     @PostMapping("/u/v1/reserve")
     @Operation(summary = "예매", description = "예매")
-    public void reserve(@RequestBody @Valid ReservationDto.ReservationReq req) {
-        // TODO 연극 예매 로직
+    public void reserve(@RequestBody @Valid ReservationDto.ReservationReq req) throws Exception {
+        reservationService.reserve(req);
         return;
     }
 
