@@ -41,12 +41,14 @@
             (user_id
             ,drama_id
             ,show_time_id
-            ,ticket_count)
+            ,ticket_count
+            ,price)
         VALUES
             (#{userId}
             ,#{dramaId}
             ,#{showTimeId}
-            ,#{ticketCount})
+            ,#{ticketCount}
+            ,#{price})
     </insert>
 
     <!-- findById --> 

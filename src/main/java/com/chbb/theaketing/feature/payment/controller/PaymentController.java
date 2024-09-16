@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.chbb.theaketing.feature.payment.dto.PaymentDto;
 import com.chbb.theaketing.feature.payment.service.PaymentService;
-import com.chbb.theaketing.feature.reservation.dto.ReservationDto.ReservationRes;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -26,9 +25,9 @@ public class PaymentController {
 
     @PostMapping("/u/v1/payment")
     @Operation(summary = "결제요청", description = "결제요청")
-    public ReservationRes payment(@RequestBody @Valid PaymentDto.PaymentReq req) throws Exception {
+    public void payment(@RequestBody @Valid PaymentDto.PaymentReq req) throws Exception {
 
-        return paymentService.payment(req);
+        paymentService.payment(req);
     }
 
 }

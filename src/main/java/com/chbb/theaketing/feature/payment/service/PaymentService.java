@@ -8,7 +8,6 @@ import com.chbb.theaketing.feature.common.exception.ErrorCode;
 import com.chbb.theaketing.feature.common.exception.TheaketingException;
 import com.chbb.theaketing.feature.payment.dto.PaymentDto;
 import com.chbb.theaketing.feature.payment.entity.Payment;
-import com.chbb.theaketing.feature.reservation.dto.ReservationDto.ReservationRes;
 import com.chbb.theaketing.feature.reservation.entity.Reservation;
 import com.chbb.theaketing.feature.reservation.service.ReservationQueryService;
 
@@ -24,7 +23,7 @@ public class PaymentService {
 
     private final SecurityService securityService;
 
-    public ReservationRes payment(PaymentDto.PaymentReq req) throws Exception {
+    public void payment(PaymentDto.PaymentReq req) throws Exception {
         Reservation reservation = reservationQueryService.findById(req.getReservationId());
         if (!reservation.getUserId().equals(securityService.getUser().getId())) {
             throw new TheaketingException(ErrorCode.RESERVATION_NOT_MINE);
@@ -48,7 +47,6 @@ public class PaymentService {
             paymentProcess(payment);
             payment.paymentSuccess();
             paymentUpdate(payment);
-            return new ReservationRes();
         } catch (Exception e) {
             // 결제 실패 시 예외 던지고 예매내역도 삭제
             payment.paymentFail();

@@ -32,9 +32,8 @@ public class ReservationController {
 
     @PostMapping("/u/v1/reserve")
     @Operation(summary = "예매", description = "예매")
-    public void reserve(@RequestBody @Valid ReservationDto.ReservationReq req) throws Exception {
-        reservationService.reserve(req);
-        return;
+    public Long reserve(@RequestBody @Valid ReservationDto.ReservationReq req) throws Exception {
+        return reservationService.reserve(req);
     }
 
     @DeleteMapping("/u/v1/reserve/{id}")
