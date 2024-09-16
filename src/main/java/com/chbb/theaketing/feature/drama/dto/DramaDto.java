@@ -7,7 +7,8 @@ import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
 import com.chbb.theaketing.feature.common.pagination.PageDto;
-import com.chbb.theaketing.feature.drama.dto.TheaterDto.TheaterInfo;
+import com.chbb.theaketing.feature.drama.entity.Drama;
+import com.chbb.theaketing.feature.theater.entity.Theater;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
@@ -35,7 +36,7 @@ public class DramaDto {
 
         @Schema(description = "연극id")
         @NonNull
-        protected Integer id;
+        protected Long id;
 
         @Schema(description = "연극이름")
         @NonNull
@@ -55,11 +56,11 @@ public class DramaDto {
 
         @Schema(description = "극장")
         @NonNull
-        protected TheaterDto.TheaterInfo theater;
+        protected Theater theater;
 
         @Builder
-        public DramaListRes(Integer id, String title, String thumbnailImage, LocalDate startDate, LocalDate endDate,
-                TheaterInfo theater) {
+        public DramaListRes(Long id, String title, String thumbnailImage, LocalDate startDate, LocalDate endDate,
+                Theater theater) {
             this.id = id;
             this.title = title;
             this.thumbnailImage = thumbnailImage;
@@ -76,7 +77,7 @@ public class DramaDto {
 
         @Schema(description = "연극id")
         @NonNull
-        protected Integer id;
+        protected Long id;
 
         @Schema(description = "연극이름")
         @NonNull
@@ -96,7 +97,7 @@ public class DramaDto {
 
         @Schema(description = "극장")
         @NonNull
-        protected TheaterDto.TheaterInfo theater;
+        protected Theater theater;
 
         @Schema(description = "예매 오픈일")
         @NonNull
@@ -108,16 +109,11 @@ public class DramaDto {
 
         @Schema(description = "1인 예매 제한수")
         @NonNull
-        protected Integer limitCount;
-
-        @Schema(description = "작품 상세 이미지")
-        @NonNull
-        protected String descriptionImage;
+        protected Long limitCount;
 
         @Builder
-        public DramaDetailRes(Integer id, String title, String thumbnailImage, LocalDate startDate, LocalDate endDate,
-                TheaterInfo theater, LocalDateTime openDateTime, LocalDateTime closeDateTime, Integer limitCount,
-                String descriptionImage) {
+        public DramaDetailRes(Long id, String title, String thumbnailImage, LocalDate startDate, LocalDate endDate,
+                Theater theater, LocalDateTime openDateTime, LocalDateTime closeDateTime, Long limitCount) {
             this.id = id;
             this.title = title;
             this.thumbnailImage = thumbnailImage;
@@ -127,7 +123,18 @@ public class DramaDto {
             this.openDateTime = openDateTime;
             this.closeDateTime = closeDateTime;
             this.limitCount = limitCount;
-            this.descriptionImage = descriptionImage;
+        }
+
+        public DramaDetailRes(Drama drama, Theater theater) {
+            this.id = drama.getId();
+            this.title = drama.getTitle();
+            this.thumbnailImage = drama.getThumbnailImage();
+            this.startDate = drama.getStartDate();
+            this.endDate = drama.getEndDate();
+            this.theater = theater;
+            this.openDateTime = drama.getOpenDateTime();
+            this.closeDateTime = drama.getCloseDateTime();
+            this.limitCount = drama.getLimitCount();
         }
     }
 
@@ -138,7 +145,7 @@ public class DramaDto {
 
         @Schema(description = "연극id")
         @NonNull
-        protected Integer id;
+        protected Long id;
 
         @Schema(description = "연극이름")
         @NonNull
@@ -150,10 +157,10 @@ public class DramaDto {
 
         @Schema(description = "극장")
         @NonNull
-        protected TheaterDto.TheaterInfo theater;
+        protected Theater theater;
 
         @Builder
-        public DramaReservationRes(Integer id, String title, String thumbnailImage, TheaterInfo theater) {
+        public DramaReservationRes(Long id, String title, String thumbnailImage, Theater theater) {
             this.id = id;
             this.title = title;
             this.thumbnailImage = thumbnailImage;

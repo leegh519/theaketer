@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public enum ErrorCode {
 
     // Common
-    DATA_NOT_FOUND(400, "C001", "데이터가 존재하지 않습니다."),
+    DATA_NOT_FOUND(404, "C001", "데이터가 존재하지 않습니다."),
     NOT_NULL_PARAMETER(400, "C002", "파라미터가 null입니다."),
 
     // Auth

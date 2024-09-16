@@ -2,8 +2,6 @@ package com.chbb.theaketing.feature.auth.dto;
 
 import org.springframework.lang.NonNull;
 
-import com.chbb.theaketing.feature.user.entity.User;
-
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
 import jakarta.validation.constraints.Email;

@@ -4,9 +4,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.AccessLevel;
@@ -48,7 +46,7 @@ public class UserDto {
     public static class UserInfo {
         @Schema(description = "ID", example = "1")
         @NonNull
-        private Integer id;
+        private Long id;
 
         @Schema(description = "이메일", example = "ghkstoo@naver.com")
         @NonNull
@@ -63,7 +61,7 @@ public class UserDto {
         private String phone;
 
         @Builder
-        public UserInfo(Integer id, String email, String name, String phone) {
+        public UserInfo(Long id, String email, String name, String phone) {
             this.id = id;
             this.email = email;
             this.name = name;
