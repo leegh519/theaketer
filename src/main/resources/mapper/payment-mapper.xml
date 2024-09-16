@@ -27,4 +27,12 @@
             status = #{status}
         WHERE   id = #{id}
     </update>    
+
+    <!-- delete --> 
+    <delete id="delete" parameterType="long">
+        DELETE
+        FROM    payment
+        WHERE   reservation_id = #{reservationId}
+    </delete>
+
 </mapper>

@@ -29,4 +29,11 @@ public class PaymentCommandService {
         paymentMapper.update(payment);
     }
 
+    public void delete(Long reservationId) throws Exception {
+        if (reservationId == null) {
+            throw new TheaketingException(ErrorCode.NOT_NULL_PARAMETER);
+        }
+        paymentMapper.delete(reservationId);
+    }
+
 }

@@ -24,7 +24,8 @@
     <!-- findTimesByDramaIdAndDate --> 
     <select id="findTimesByDramaIdAndDate" parameterType="com.chbb.theaketing.feature.drama.dto.DramaDateTimeDto$DramaTimeSearch"
     resultType="com.chbb.theaketing.feature.drama.dto.DramaDateTimeDto$DramaTime">
-        SELECT  s.start_time as time
+        SELECT  s.id
+                ,s.start_time as time
                 ,t.seat_count - 
                     (SELECT count(*) 
                     FROM reservation 

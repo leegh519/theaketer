@@ -101,5 +101,12 @@
         WHERE   r.user_id = #{userId}
             AND p.status = '완료'
     </select>
-        
+
+    <!-- delete --> 
+
+    <delete id="delete" parameterType="long">
+        DELETE  
+        FROM    reservation 
+        WHERE   id = #{id}
+    </delete>        
 </mapper>

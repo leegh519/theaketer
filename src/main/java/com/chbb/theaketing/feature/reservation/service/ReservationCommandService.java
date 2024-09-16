@@ -28,4 +28,8 @@ public class ReservationCommandService {
         }
     }
 
+    public void delete(Long id) throws Exception {
+        reservationMapper.delete(id);
+    }
+
 }

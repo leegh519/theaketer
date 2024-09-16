@@ -39,9 +39,8 @@ public class ReservationController {
 
     @DeleteMapping("/u/v1/reserve/{id}")
     @Operation(summary = "예매 취소", description = "예매 취소")
-    public void cancel(@PathVariable @Min(value = 1, message = "예매 정보가 올바르지 않습니다") Long id) {
-        // TODO 연극 예매 취소 로직
-        return;
+    public void cancel(@PathVariable @Min(value = 1, message = "예매 정보가 올바르지 않습니다") Long id) throws Exception {
+        reservationService.cancel(id);
     }
 
     @GetMapping("/u/v1/reserve")

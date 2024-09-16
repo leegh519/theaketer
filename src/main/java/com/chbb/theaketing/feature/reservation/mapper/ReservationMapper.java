@@ -20,4 +20,6 @@ public interface ReservationMapper {
 
     public long count(PageDto page) throws Exception;
 
+    public void delete(Long id) throws Exception;
+
 }

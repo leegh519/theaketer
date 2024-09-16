@@ -3,6 +3,7 @@ package com.chbb.theaketing.feature.reservation.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.chbb.theaketing.feature.common.exception.ErrorCode;
 import com.chbb.theaketing.feature.common.exception.TheaketingException;
@@ -16,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class ReservationQueryService {
 
     private final ReservationMapper reservationMapper;

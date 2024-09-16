@@ -1,6 +1,7 @@
 package com.chbb.theaketing.feature.theater.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.chbb.theaketing.feature.common.exception.ErrorCode;
 import com.chbb.theaketing.feature.common.exception.TheaketingException;
@@ -11,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class TheaterQueryService {
 
     private final TheaterMapper theaterMapper;
