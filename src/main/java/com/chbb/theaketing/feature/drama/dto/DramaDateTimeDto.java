@@ -19,7 +19,7 @@ public class DramaDateTimeDto {
 
         @Schema(description = "연극 날짜")
         @NonNull
-        protected LocalDate date;
+        protected LocalDate showDate;
     }
 
     @Getter

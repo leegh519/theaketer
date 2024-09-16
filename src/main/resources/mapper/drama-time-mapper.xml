@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.chbb.theaketing.feature.drama.mapper.DramaTimeMapper">
+    <!-- <select id="findByDramaId" parameterType="Long" resultType="">
+        SELECT  * 
+        FROM    show_times
+        WHERE   drama_id = #{id}
+    </select> -->
+
+    <!-- findDatesByDramaId --> 
+    <select id="findDatesByDramaId" parameterType="Long" resultType="com.chbb.theaketing.feature.drama.dto.DramaDateTimeDto$DramaDate">
+        SELECT      show_date
+        FROM        show_times
+        GROUP BY    show_date
+        HAVING      drama_id = #{id}
+    </select>
+    
+</mapper>

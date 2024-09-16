@@ -51,9 +51,8 @@ public class DramaController {
     @GetMapping("/u/v1/drama/{id}/date")
     @Operation(summary = "연극 날짜 조회", description = "연극 날짜 조회")
     public List<DramaDateTimeDto.DramaDate> dramaDate(
-            @PathVariable @Min(value = 1, message = "연극 id값이 올바르지 않습니다") Long id) {
-        // TODO 연극 날짜 조회 로직
-        return new ArrayList<>();
+            @PathVariable @Min(value = 1, message = "연극 id값이 올바르지 않습니다") Long id) throws Exception {
+        return dramaService.dramaDate(id);
     }
 
     // 연극 회차 조회
