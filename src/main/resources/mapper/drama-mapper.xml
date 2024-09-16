@@ -30,11 +30,11 @@
                 ,d.thumbnail_image
                 ,d.start_date
                 ,d.end_date
-                ,t.id theater_id
-                ,t.name theater_name
-                ,t.address theater_address
-                ,t.address_detail theater_address_detail
-                ,t.seat_count theater_seat_count
+                ,t.id as theater_id
+                ,t.name as theater_name
+                ,t.address as theater_address
+                ,t.address_detail as theater_address_detail
+                ,t.seat_count as theater_seat_count
         FROM    drama d
         JOIN    theater t
             ON  d.theater_id = t.id

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chbb.theaketing.feature.common.pagination.Page;
+import com.chbb.theaketing.feature.common.pagination.PageDto;
 import com.chbb.theaketing.feature.reservation.dto.ReservationDto;
 import com.chbb.theaketing.feature.reservation.dto.ReservationDto.ReservationRes;
 import com.chbb.theaketing.feature.reservation.service.ReservationService;
@@ -45,8 +46,7 @@ public class ReservationController {
 
     @GetMapping("/u/v1/reserve")
     @Operation(summary = "예매 내역", description = "예매 내역")
-    public Page<ReservationRes> paginate() {
-        // TODO 예매 내역 목록 조회 로직
-        return new Page<ReservationRes>();
+    public Page<ReservationRes> paginate(PageDto page) throws Exception {
+        return reservationService.paginate(page);
     }
 }
