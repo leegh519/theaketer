@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.chbb.theaketing.feature.payment.mapper.PaymentMapper">
+
+    <!-- insert --> 
+    <insert id="insert" parameterType="com.chbb.theaketing.feature.payment.entity.Payment"
+    useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO payment
+            (user_id
+            ,reservation_id
+            ,payment_date
+            ,status)
+        VALUES
+            (#{userId}
+            ,#{reservationId}
+            ,now()
+            ,#{status})
+    </insert>
+    
+
+    <!-- update --> 
+    <update id="update" parameterType="com.chbb.theaketing.feature.payment.entity.Payment">
+        UPDATE payment
+        SET
+            status = #{status}
+        WHERE   id = #{id}
+    </update>    
+</mapper>

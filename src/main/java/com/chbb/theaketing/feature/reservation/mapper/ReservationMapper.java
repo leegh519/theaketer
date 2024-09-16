@@ -9,4 +9,6 @@ public interface ReservationMapper {
 
     public void insert(Reservation reservation) throws Exception;
 
+    public Reservation findById(Long id) throws Exception;
+
 }

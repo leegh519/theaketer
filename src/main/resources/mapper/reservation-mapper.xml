@@ -18,5 +18,11 @@
             ,#{showTimeId}
             ,#{ticketCount})
     </insert>
-    
+
+    <!-- findById --> 
+    <select id="findById" parameterType="long" resultType="com.chbb.theaketing.feature.reservation.entity.Reservation">
+        SELECT  *
+        FROM    reservation
+        WHERE   id = #{id}
+    </select>    
 </mapper>
