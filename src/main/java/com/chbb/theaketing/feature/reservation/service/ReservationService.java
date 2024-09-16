@@ -39,7 +39,7 @@ public class ReservationService {
 
     private final SecurityService securityService;
 
-    public void reserve(ReservationDto.ReservationReq req) throws Exception {
+    public Long reserve(ReservationDto.ReservationReq req) throws Exception {
 
         Drama drama = dramaQueryService.findById(req.getDramaId());
 
@@ -58,7 +58,7 @@ public class ReservationService {
                 .userId(securityService.getUser().getId())
                 .price(req.getTicketCount() * drama.getPrice())
                 .build();
-        reservationCommandService.insert(reservation);
+        return reservationCommandService.insert(reservation);
     }
 
     public Page<ReservationRes> paginate(PageDto page) throws Exception {

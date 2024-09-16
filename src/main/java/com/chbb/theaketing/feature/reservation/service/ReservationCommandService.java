@@ -16,7 +16,7 @@ public class ReservationCommandService {
 
     private final ReservationMapper reservationMapper;
 
-    public void insert(Reservation reservation) throws Exception {
+    public Long insert(Reservation reservation) throws Exception {
         if (reservation == null) {
             throw new TheaketingException(ErrorCode.NOT_NULL_PARAMETER);
         }
@@ -26,6 +26,7 @@ public class ReservationCommandService {
             e.printStackTrace();
             throw new TheaketingException(ErrorCode.RESERVATION_DUPLICATE);
         }
+        return reservation.getId();
     }
 
     public void delete(Long id) throws Exception {
