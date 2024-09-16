@@ -4,7 +4,9 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 
+import com.chbb.theaketing.feature.common.pagination.PageDto;
 import com.chbb.theaketing.feature.drama.dto.DramaDto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -32,6 +34,24 @@ public class ReservationDto {
         @Schema(description = "예매 수량", requiredMode = RequiredMode.REQUIRED)
         @Min(value = 1, message = "티켓 수량이 잘못되었습니다")
         protected Long ticketCount;
+    }
+
+    @Getter
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    @Schema(description = "예매 목록 검색")
+    public static class ReservationSearchReq extends PageDto {
+
+        @Schema(description = "유저id")
+        @Nullable
+        protected Long userId;
+
+        public ReservationSearchReq(Long userId, PageDto page) {
+            this.userId = userId;
+            super.itemSize = page.getItemSize();
+            super.pageNum = page.getPageNum();
+            super.pageSize = page.getPageSize();
+            super.totalCount = page.getTotalCount();
+        }
     }
 
     @Getter

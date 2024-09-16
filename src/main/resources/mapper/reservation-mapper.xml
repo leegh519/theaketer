@@ -4,6 +4,36 @@
 
 <mapper namespace="com.chbb.theaketing.feature.reservation.mapper.ReservationMapper">
 
+    <resultMap id="reservationList" type="com.chbb.theaketing.feature.reservation.dto.ReservationDto$ReservationRes" >
+        <id property="id" column="id"/>
+        <result property="ticketCount" column="ticket_count"/>
+        <result property="price" column="price"/>
+        <collection property="date" ofType="com.chbb.theaketing.feature.reservation.dto.ReservationDto$ReservationDateRes" resultMap="date"/>
+        <collection property="drama" ofType="com.chbb.theaketing.feature.drama.dto.DramaDto$DramaReservationRes" resultMap="drama"/>
+    </resultMap>
+
+    <resultMap id="date" type="com.chbb.theaketing.feature.reservation.dto.ReservationDto$ReservationDateRes" >
+        <id property="id" column="show_time_id"/>
+        <result property="showDate" column="show_time_show_date"/>
+        <result property="startTime" column="show_time_start_time"/>
+    </resultMap>
+
+    <resultMap id="drama" type="com.chbb.theaketing.feature.drama.dto.DramaDto$DramaReservationRes" >
+        <id property="id" column="drama_id"/>
+        <result property="title" column="drama_title"/>
+        <result property="thumbnailImage" column="drama_thumbnail_image"/>
+        <collection property="theater" ofType="com.chbb.theaketing.feature.drama.dto.TheaterDto$TheaterInfo" resultMap="theater"/>
+    </resultMap>
+
+    <resultMap id="theater" type="com.chbb.theaketing.feature.theater.entity.Theater">
+        <id property="id" column="theater_id"/>
+        <result property="name" column="theater_name"/>
+        <result property="address" column="theater_address"/>
+        <result property="addressDetail" column="theater_address_detail"/>
+        <result property="seatCount" column="theater_seat_count"/>
+    </resultMap>
+
+
     <!-- insert --> 
     <insert id="insert" parameterType="com.chbb.theaketing.feature.reservation.entity.Reservation"
     useGeneratedKeys="true" keyProperty="id">
@@ -25,4 +55,51 @@
         FROM    reservation
         WHERE   id = #{id}
     </select>    
+
+
+    <!-- paginate --> 
+    <select id="paginate" parameterType="com.chbb.theaketing.feature.reservation.dto.ReservationDto$ReservationSearchReq"
+    resultMap="reservationList">
+        SELECT  r.id
+                ,r.ticket_count
+                ,r.price
+                ,s.id as show_time_id
+                ,s.show_date as show_time_show_date
+                ,s.start_time as show_time_start_time
+                ,d.id as drama_id
+                ,d.title as drama_title
+                ,d.thumbnail_image as drama_thumbnail_image
+                ,t.id as theater_id
+                ,t.name as theater_name
+                ,t.address as theater_address
+                ,t.address_detail as theater_address_detail
+                ,t.seat_count as theater_seat_count
+        FROM    reservation r
+        JOIN    show_times s
+            ON  r.show_time_id = s.id
+        JOIN    drama d
+            ON  r.drama_id = d.id
+        JOIN    theater t
+            ON  d.theater_id = t.id
+        JOIN    payment p
+            ON  r.id = p.reservation_id
+        WHERE   r.user_id = #{userId}
+            AND p.status = '완료'
+        ORDER BY d.start_date
+        LIMIT   #{itemSize}
+        OFFSET  #{offset}
+    </select>
+
+
+    <!-- count --> 
+    <select id="count" parameterType="com.chbb.theaketing.feature.reservation.dto.ReservationDto$ReservationSearchReq"
+    resultType="long">
+        SELECT  COUNT(*)
+        FROM    reservation r
+        JOIN    payment p
+            ON  r.id = p.reservation_id
+        WHERE   r.user_id = #{userId}
+            AND p.status = '완료'
+    </select>
+        
 </mapper>
