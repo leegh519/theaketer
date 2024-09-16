@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.chbb.theaketing.feature.common.pagination.Page;
 import com.chbb.theaketing.feature.drama.dto.DramaDateTimeDto.DramaDate;
+import com.chbb.theaketing.feature.drama.dto.DramaDateTimeDto.DramaTime;
+import com.chbb.theaketing.feature.drama.dto.DramaDateTimeDto.DramaTimeSearch;
 import com.chbb.theaketing.feature.drama.dto.DramaDto;
 import com.chbb.theaketing.feature.drama.dto.DramaDto.DramaDetailRes;
 import com.chbb.theaketing.feature.drama.dto.DramaDto.DramaListRes;
@@ -38,6 +40,10 @@ public class DramaService {
 
     public List<DramaDate> dramaDate(Long id) throws Exception {
         return dramaTimeQueryService.dramaDate(id);
+    }
+
+    public List<DramaTime> dramaTime(DramaTimeSearch req) throws Exception {
+        return dramaTimeQueryService.dramaDate(req);
     }
 
 }
