@@ -14,6 +14,26 @@ public class DramaDateTimeDto {
 
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    @Schema(description = "연극 회차 조회")
+    public static class DramaTimeSearch {
+
+        @Schema(description = "연극 id")
+        @NonNull
+        protected Long dramaId;
+
+        @Schema(description = "연극 날짜")
+        @NonNull
+        protected LocalDate showDate;
+
+        public DramaTimeSearch(Long dramaId, LocalDate showDate) {
+            this.dramaId = dramaId;
+            this.showDate = showDate;
+        }
+
+    }
+
+    @Getter
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
     @Schema(description = "연극 날짜")
     public static class DramaDate {
 

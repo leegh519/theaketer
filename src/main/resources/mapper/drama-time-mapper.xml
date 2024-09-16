@@ -3,11 +3,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.chbb.theaketing.feature.drama.mapper.DramaTimeMapper">
-    <!-- <select id="findByDramaId" parameterType="Long" resultType="">
-        SELECT  * 
-        FROM    show_times
-        WHERE   drama_id = #{id}
-    </select> -->
+
 
     <!-- findDatesByDramaId --> 
     <select id="findDatesByDramaId" parameterType="Long" resultType="com.chbb.theaketing.feature.drama.dto.DramaDateTimeDto$DramaDate">
@@ -16,5 +12,21 @@
         GROUP BY    show_date
         HAVING      drama_id = #{id}
     </select>
-    
+
+    <!-- findTimesByDramaIdAndDate --> 
+    <select id="findTimesByDramaIdAndDate" parameterType="com.chbb.theaketing.feature.drama.dto.DramaDateTimeDto$DramaTimeSearch"
+    resultType="com.chbb.theaketing.feature.drama.dto.DramaDateTimeDto$DramaTime">
+        SELECT  s.start_time as time
+                ,t.seat_count - 
+                    (SELECT count(*) 
+                    FROM reservation 
+                    WHERE show_time_id = s.id) as remain_seats 
+        FROM    show_times s
+        JOIN	drama d 
+            ON	s.drama_id = d.id
+        JOIN    theater t  
+            ON  d.theater_id = t.id
+        WHERE   s.drama_id = #{dramaId}
+		    AND s.show_date = #{showDate};
+    </select>    
 </mapper>

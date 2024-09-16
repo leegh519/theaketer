@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.chbb.theaketing.feature.common.pagination.Page;
 import com.chbb.theaketing.feature.drama.dto.DramaDateTimeDto;
 import com.chbb.theaketing.feature.drama.dto.DramaDto;
+import com.chbb.theaketing.feature.drama.dto.DramaDateTimeDto.DramaTimeSearch;
 import com.chbb.theaketing.feature.drama.dto.DramaDto.DramaListRes;
 import com.chbb.theaketing.feature.drama.service.DramaService;
 
@@ -60,9 +61,10 @@ public class DramaController {
     @Operation(summary = "연극 회차 조회", description = "연극 회차 조회")
     public List<DramaDateTimeDto.DramaTime> dramaTime(
             @PathVariable @Min(value = 1, message = "연극 id값이 올바르지 않습니다") Long id,
-            @PathVariable @DateTimeFormat(pattern = "yyyyMMdd") LocalDate date) {
-        // TODO 연극 날짜 조회 로직
-        return new ArrayList<>();
+            @PathVariable @DateTimeFormat(pattern = "yyyyMMdd") LocalDate date) throws Exception {
+
+        DramaDateTimeDto.DramaTimeSearch req = new DramaDateTimeDto.DramaTimeSearch(id, date);
+        return dramaService.dramaTime(req);
     }
 
 }
