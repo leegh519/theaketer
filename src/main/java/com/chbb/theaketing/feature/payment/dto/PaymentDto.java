@@ -18,9 +18,6 @@ public class PaymentDto {
         @Min(value = 1, message = "예매 정보가 올바르지 않습니다")
         protected Long reservationId;
 
-        @Schema(description = "가격", requiredMode = RequiredMode.NOT_REQUIRED)
-        @Min(value = 1, message = "결제 정보가 올바르지 않습니다")
-        protected Long price;
     }
 
 }

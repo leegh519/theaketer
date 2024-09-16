@@ -1,6 +1,5 @@
 package com.chbb.theaketing.feature.drama.service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -24,7 +23,7 @@ public class DramaService {
 
     private final DramaQueryService dramaQueryService;
 
-    private final DramaTimeQueryService dramaTimeQueryService;
+    private final ShowTimeQueryService dramaTimeQueryService;
 
     private final TheaterQueryService theaterQueryService;
 
@@ -32,7 +31,7 @@ public class DramaService {
         return dramaQueryService.paginate(req);
     }
 
-    public DramaDetailRes fetch(long id) throws Exception {
+    public DramaDetailRes fetch(Long id) throws Exception {
         Drama drama = dramaQueryService.findById(id);
         Theater theater = theaterQueryService.findById(drama.getTheaterId());
         return new DramaDetailRes(drama, theater);

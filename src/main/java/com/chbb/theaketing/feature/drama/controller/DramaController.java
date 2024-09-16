@@ -1,7 +1,6 @@
 package com.chbb.theaketing.feature.drama.controller;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springdoc.core.annotations.ParameterObject;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.chbb.theaketing.feature.common.pagination.Page;
 import com.chbb.theaketing.feature.drama.dto.DramaDateTimeDto;
 import com.chbb.theaketing.feature.drama.dto.DramaDto;
-import com.chbb.theaketing.feature.drama.dto.DramaDateTimeDto.DramaTimeSearch;
 import com.chbb.theaketing.feature.drama.dto.DramaDto.DramaListRes;
 import com.chbb.theaketing.feature.drama.service.DramaService;
 
