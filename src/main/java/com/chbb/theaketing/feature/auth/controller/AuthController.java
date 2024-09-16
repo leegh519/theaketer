@@ -4,7 +4,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chbb.theaketing.feature.auth.dto.AuthDto;
-import com.chbb.theaketing.feature.auth.dto.AuthFindDto;
 import com.chbb.theaketing.feature.auth.dto.SignUpDto;
 import com.chbb.theaketing.feature.auth.service.AuthService;
 import com.chbb.theaketing.feature.auth.service.EmailVerifyService;
@@ -16,7 +15,6 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
@@ -56,18 +54,18 @@ public class AuthController {
         return;
     }
 
-    @PostMapping("/u/v1/auth/find")
-    @Operation(summary = "비밀번호 찾기", description = "비밀번호 찾기")
-    public void find(@RequestBody @Valid AuthFindDto.AuthFindReq req) throws Exception {
-        // TODO 비밀번호 재설정 링크 발송 로직
-        return;
-    }
+    // @PostMapping("/u/v1/auth/find")
+    // @Operation(summary = "비밀번호 찾기", description = "비밀번호 찾기")
+    // public void find(@RequestBody @Valid AuthFindDto.AuthFindReq req) throws
+    // Exception {
+    // return;
+    // }
 
-    @PutMapping("/u/v1/auth")
-    @Operation(summary = "비밀번호 재설정", description = "비밀번호 재설정")
-    public void changePassword(@RequestBody @Valid AuthFindDto.PasswordChangeReq req) throws Exception {
-        // TODO 비밀번호 재설정 로직
-        return;
-    }
+    // @PutMapping("/u/v1/auth")
+    // @Operation(summary = "비밀번호 재설정", description = "비밀번호 재설정")
+    // public void changePassword(@RequestBody @Valid AuthFindDto.PasswordChangeReq
+    // req) throws Exception {
+    // return;
+    // }
 
 }

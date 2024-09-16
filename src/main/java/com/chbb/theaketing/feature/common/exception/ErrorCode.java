@@ -17,8 +17,10 @@ public enum ErrorCode {
 
     // Reservation
     RESERVATION_DUPLICATE(400, "R001", "예매 내역이 존재합니다."),
-    TIME_INVALID(400, "R002", "시작 1시간 전까지 예매 가능합니다."),
-    RESERVATION_NOT_MINE(400, "R003", "예매 정보가 올바르지 않습니다."),
+    RESERVATION_TIME_INVALID(400, "R002", "시작 1시간 전까지 예매 가능합니다."),
+    CANCEL_TIME_INVALID(400, "R003", "시작 1시간 전까지 취소 가능합니다."),
+    RESERVATION_NOT_MINE(400, "R004", "예매 정보가 올바르지 않습니다."),
+    HAS_NO_AUTHORITY(400, "R005", "권한이 없습니다."),
 
     // payment
     PAYMENT_FAIL(400, "P001", "결제에 실패했습니다."),

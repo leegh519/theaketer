@@ -28,13 +28,6 @@ public class Page<T> {
     @Schema(description = "페이지 크기")
     protected int pageSize;
 
-    // TODO 임시 생성자
-    public Page() {
-        this.itemSize = 1;
-        this.pageSize = 1;
-        this.pageNum = 1;
-    }
-
     public Page(List<T> content, PageDto pageDto, long totalCount) {
         if (content != null) {
             this.content = content;

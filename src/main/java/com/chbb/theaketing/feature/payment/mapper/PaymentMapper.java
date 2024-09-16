@@ -11,4 +11,6 @@ public interface PaymentMapper {
 
     public void update(Payment payment) throws Exception;
 
+    public void delete(Long reservationId) throws Exception;
+
 }

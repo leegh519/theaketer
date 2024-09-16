@@ -47,6 +47,10 @@ public class DramaDateTimeDto {
     @Schema(description = "연극 회차")
     public static class DramaTime {
 
+        @Schema(description = "연극 회차 id")
+        @NonNull
+        protected Long id;
+
         @Schema(description = "연극 회차")
         @NonNull
         protected LocalTime time;
