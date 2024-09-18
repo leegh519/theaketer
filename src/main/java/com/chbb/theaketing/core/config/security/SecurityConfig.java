@@ -13,6 +13,11 @@ import org.springframework.security.web.context.DelegatingSecurityContextReposit
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.security.web.context.RequestAttributeSecurityContextRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.List;
 
 import lombok.RequiredArgsConstructor;
 
@@ -32,6 +37,7 @@ public class SecurityConfig {
                     securityContext.securityContextRepository(delegatingSecurityContextRepository());
                     securityContext.requireExplicitSave(true);
                 })
+                .cors(t -> t.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(authorizeRequest -> authorizeRequest
                         .requestMatchers(AntPathRequestMatcher.antMatcher("/api/**/login"))
                         .permitAll()
@@ -45,6 +51,8 @@ public class SecurityConfig {
                         .permitAll()
                         .requestMatchers(AntPathRequestMatcher.antMatcher("/api/*/*/auth/**"))
                         .permitAll()
+                        .requestMatchers(AntPathRequestMatcher.antMatcher("/api/*/*/drama/**"))
+                        .permitAll()
                         .requestMatchers(AntPathRequestMatcher.antMatcher("/error"))
                         .permitAll()
                         // .anyRequest()
@@ -56,7 +64,13 @@ public class SecurityConfig {
                                 .accessDeniedHandler(accessHandler)
                                 .authenticationEntryPoint(entryPoint))
                 .logout(logoutCustomizer -> logoutCustomizer.logoutUrl("/logout")
-                        .deleteCookies("JSESSIONID", "remember-me"));
+                        .permitAll()
+                        .deleteCookies("JSESSIONID", "remember-me")
+                        .logoutSuccessHandler((request, response, authentication) -> {
+                            response.setStatus(200);
+                            response.addHeader("Access-Control-Allow-Origin", request.getHeader("Origin").toString());
+                            response.addHeader("Access-Control-Allow-Credentials", "true");
+                        }));
 
         return http.build();
     }
@@ -88,6 +102,18 @@ public class SecurityConfig {
     @Bean
     BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(List.of("http://localhost:5173"));
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
+        configuration.setAllowCredentials(true);
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 
 }

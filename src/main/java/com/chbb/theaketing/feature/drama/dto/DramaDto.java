@@ -111,9 +111,18 @@ public class DramaDto {
         @NonNull
         protected Long limitCount;
 
+        @Schema(description = "상세 이미지")
+        @NonNull
+        protected String descriptionImage;
+
+        @Schema(description = "1장 가격")
+        @NonNull
+        protected Long price;
+
         @Builder
         public DramaDetailRes(Long id, String title, String thumbnailImage, LocalDate startDate, LocalDate endDate,
-                Theater theater, LocalDateTime openDateTime, LocalDateTime closeDateTime, Long limitCount) {
+                Theater theater, LocalDateTime openDateTime, LocalDateTime closeDateTime, Long limitCount,
+                String descriptionImage, Long price) {
             this.id = id;
             this.title = title;
             this.thumbnailImage = thumbnailImage;
@@ -123,6 +132,8 @@ public class DramaDto {
             this.openDateTime = openDateTime;
             this.closeDateTime = closeDateTime;
             this.limitCount = limitCount;
+            this.descriptionImage = descriptionImage;
+            this.price = price;
         }
 
         public DramaDetailRes(Drama drama, Theater theater) {
@@ -135,6 +146,8 @@ public class DramaDto {
             this.openDateTime = drama.getOpenDateTime();
             this.closeDateTime = drama.getCloseDateTime();
             this.limitCount = drama.getLimitCount();
+            this.descriptionImage = drama.getDescriptionImage();
+            this.price = drama.getPrice();
         }
     }
 
