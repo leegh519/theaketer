@@ -19,6 +19,7 @@
         FROM        show_times
         WHERE       drama_id = #{id}
         GROUP BY    show_date
+        ORDER BY    show_date
     </select>
 
     <!-- findTimesByDramaIdAndDate --> 
@@ -36,6 +37,8 @@
         JOIN    theater t  
             ON  d.theater_id = t.id
         WHERE   s.drama_id = #{dramaId}
-		    AND s.show_date = #{showDate};
+		    AND s.show_date = #{showDate}
+        ORDER BY    s.start_time asc
+
     </select>    
 </mapper>

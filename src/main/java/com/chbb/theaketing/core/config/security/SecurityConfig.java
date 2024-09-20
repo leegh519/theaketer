@@ -68,8 +68,6 @@ public class SecurityConfig {
                         .deleteCookies("JSESSIONID", "remember-me")
                         .logoutSuccessHandler((request, response, authentication) -> {
                             response.setStatus(200);
-                            response.addHeader("Access-Control-Allow-Origin", request.getHeader("Origin").toString());
-                            response.addHeader("Access-Control-Allow-Credentials", "true");
                         }));
 
         return http.build();

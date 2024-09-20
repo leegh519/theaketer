@@ -40,6 +40,8 @@ public class ReservationService {
     private final SecurityService securityService;
 
     public Long reserve(ReservationDto.ReservationReq req) throws Exception {
+        // TODO 예매하고 일정시간(5분)안에 결제가 안이루어지면
+        // 예매정보를 삭제시키기
 
         Drama drama = dramaQueryService.findById(req.getDramaId());
 
