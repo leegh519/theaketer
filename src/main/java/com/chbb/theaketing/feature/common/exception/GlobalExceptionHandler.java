@@ -2,6 +2,7 @@ package com.chbb.theaketing.feature.common.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
@@ -25,5 +26,14 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<ErrorResponse>(new ErrorResponse(e.getError()),
                 HttpStatus.valueOf(e.getError().getStatus()));
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    protected ResponseEntity<ErrorResponse> handleAuthenticationException(
+            BadCredentialsException e,
+            HttpServletRequest request,
+            HttpServletResponse response) {
+        return new ResponseEntity<ErrorResponse>(new ErrorResponse(ErrorCode.AUTHENTICATION_FAIL),
+                HttpStatus.valueOf(400));
     }
 }

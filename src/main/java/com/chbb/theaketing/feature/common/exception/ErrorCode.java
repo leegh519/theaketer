@@ -14,6 +14,7 @@ public enum ErrorCode {
     CODE_EXPIRED(400, "A002", "인증코드가 만료되었습니다."),
     WRONG_CODE(400, "A003", "인증코드가 일치하지 않습니다."),
     NOT_EMAIL_AUTHENTICATE(400, "A004", "이메일 인증이 필요합니다."),
+    AUTHENTICATION_FAIL(400, "A005", "아이디나 비밀번호가 잘못되었습니다."),
 
     // Reservation
     RESERVATION_DUPLICATE(400, "R001", "예매 내역이 존재합니다."),

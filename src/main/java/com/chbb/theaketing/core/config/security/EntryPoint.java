@@ -18,11 +18,11 @@ public class EntryPoint implements AuthenticationEntryPoint {
             throws IOException, ServletException {
 
         String url = request.getRequestURI().toString();
-        if (url.contains("/api/")) {
-            response.sendError(401, "로그인이 필요합니다");
-        } else {
-            response.sendRedirect("/login");
-        }
+        response.sendError(401, "로그인이 필요합니다");
+        // if (url.contains("/api/")) {
+        // } else {
+        // response.sendRedirect("/login");
+        // }
 
     }
 

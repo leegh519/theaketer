@@ -87,7 +87,7 @@
             ON  r.id = p.reservation_id
         WHERE   r.user_id = #{userId}
             AND p.status = '완료'
-        ORDER BY d.start_date
+        ORDER BY s.show_date desc
         LIMIT   #{itemSize}
         OFFSET  #{offset}
     </select>

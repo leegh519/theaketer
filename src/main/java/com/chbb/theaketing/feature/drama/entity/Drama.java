@@ -42,9 +42,13 @@ public class Drama {
     @Schema(description = "1장 가격")
     protected Long price;
 
+    @Schema(description = "상세 이미지")
+    protected String descriptionImage;
+
     @Builder
     public Drama(Long id, String title, String thumbnailImage, LocalDate startDate, LocalDate endDate,
-            Long theaterId, LocalDateTime openDateTime, LocalDateTime closeDateTime, Long limitCount, Long price) {
+            Long theaterId, LocalDateTime openDateTime, LocalDateTime closeDateTime, Long limitCount, Long price,
+            String descriptionImage) {
         this.id = id;
         this.title = title;
         this.thumbnailImage = thumbnailImage;
@@ -55,6 +59,7 @@ public class Drama {
         this.closeDateTime = closeDateTime;
         this.limitCount = limitCount;
         this.price = price;
+        this.descriptionImage = descriptionImage;
     }
 
 }

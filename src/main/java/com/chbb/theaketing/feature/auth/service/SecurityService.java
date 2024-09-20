@@ -29,7 +29,7 @@ public class SecurityService {
         return passwordEncoder.encode(rawPassword);
     }
 
-    public void authenticated(String username, String password) {
+    public void authenticated(String username, String password) throws Exception {
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username,
                 password);
 
