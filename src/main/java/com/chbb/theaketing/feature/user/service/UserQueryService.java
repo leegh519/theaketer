@@ -29,4 +29,8 @@ public class UserQueryService {
         }
         return user;
     }
+
+    public boolean existByEmail(String email) throws Exception {
+        return userMapper.existByEmail(email);
+    }
 }

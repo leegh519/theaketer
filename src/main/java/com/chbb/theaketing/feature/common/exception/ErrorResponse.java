@@ -1,6 +1,7 @@
 package com.chbb.theaketing.feature.common.exception;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -15,5 +16,12 @@ public class ErrorResponse {
         this.message = code.getMessage();
         this.status = code.getStatus();
         this.code = code.getCode();
+    }
+
+    @Builder
+    public ErrorResponse(String message, String code) {
+        this.message = message;
+        this.status = 400;
+        this.code = code;
     }
 }

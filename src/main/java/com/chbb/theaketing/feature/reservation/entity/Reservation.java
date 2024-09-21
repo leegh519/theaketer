@@ -1,5 +1,7 @@
 package com.chbb.theaketing.feature.reservation.entity;
 
+import java.time.LocalDateTime;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -27,6 +29,9 @@ public class Reservation {
 
     @Schema(description = "가격")
     protected Long price;
+
+    @Schema(description = "예매일시")
+    protected LocalDateTime createDate;
 
     @Builder
     public Reservation(Long id, Long userId, Long dramaId, Long showTimeId, Long ticketCount, Long price) {

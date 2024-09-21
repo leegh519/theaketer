@@ -33,10 +33,53 @@ public class ReservationQueryService {
         return reservation;
     }
 
+    public Reservation findByIdWithLock(Long id) throws Exception {
+        if (id == null) {
+            throw new TheaketingException(ErrorCode.NOT_NULL_PARAMETER);
+        }
+        Reservation reservation = reservationMapper.findByIdWithLock(id);
+        if (reservation == null) {
+            throw new TheaketingException(ErrorCode.DATA_NOT_FOUND);
+        }
+        return reservation;
+    }
+
     public Page<ReservationRes> paginate(ReservationSearchReq req) throws Exception {
         List<ReservationRes> content = reservationMapper.paginate(req);
         long totalCount = reservationMapper.count(req);
         return new Page<ReservationRes>(content, req, totalCount);
+    }
+
+    public boolean existByShowTimeIdAndUserId(Long showTimeId, Long userId) throws Exception {
+        if (showTimeId == null) {
+            throw new TheaketingException(ErrorCode.NOT_NULL_PARAMETER);
+        }
+        if (userId == null) {
+            throw new TheaketingException(ErrorCode.NOT_NULL_PARAMETER);
+        }
+        Reservation reservation = Reservation.builder()
+                .showTimeId(showTimeId)
+                .userId(userId)
+                .build();
+        return reservationMapper.existByShowTimeIdAndUserId(reservation);
+    }
+
+    public Reservation findByShowTimeIdAndUserId(Long showTimeId, Long userId) throws Exception {
+        if (showTimeId == null) {
+            throw new TheaketingException(ErrorCode.NOT_NULL_PARAMETER);
+        }
+        if (userId == null) {
+            throw new TheaketingException(ErrorCode.NOT_NULL_PARAMETER);
+        }
+        Reservation reservation = Reservation.builder()
+                .showTimeId(showTimeId)
+                .userId(userId)
+                .build();
+        Reservation result = reservationMapper.findByShowTimeIdAndUserId(reservation);
+        if (result == null) {
+            throw new TheaketingException(ErrorCode.DATA_NOT_FOUND);
+        }
+        return result;
     }
 
 }

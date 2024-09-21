@@ -29,6 +29,7 @@ public class EmailVerifyService {
     private static final long EXPIRE_DURATION = 5; // 만료 시간: 5분
 
     public void send(String email) throws Exception {
+
         String code = AuthCodeGenerator.generate(6);
 
         sendAuthCode(email, code);

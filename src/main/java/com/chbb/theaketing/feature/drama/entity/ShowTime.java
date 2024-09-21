@@ -5,6 +5,7 @@ import java.time.LocalTime;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -25,5 +26,19 @@ public class ShowTime {
 
     @Schema(description = "종료시간")
     protected LocalTime endTime;
+
+    @Schema(description = "남은좌석")
+    protected Long remainSeats;
+
+    @Builder
+    public ShowTime(Long id, Long dramaId, LocalDate showDate, LocalTime startTime, LocalTime endTime,
+            Long remainSeats) {
+        this.id = id;
+        this.dramaId = dramaId;
+        this.showDate = showDate;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.remainSeats = remainSeats;
+    }
 
 }

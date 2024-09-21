@@ -2,6 +2,7 @@ package com.chbb.theaketing.feature.reservation.service;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.concurrent.*;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,8 +15,10 @@ import com.chbb.theaketing.feature.common.pagination.PageDto;
 import com.chbb.theaketing.feature.drama.entity.Drama;
 import com.chbb.theaketing.feature.drama.entity.ShowTime;
 import com.chbb.theaketing.feature.drama.service.DramaQueryService;
+import com.chbb.theaketing.feature.drama.service.ShowTimeCommandService;
 import com.chbb.theaketing.feature.drama.service.ShowTimeQueryService;
 import com.chbb.theaketing.feature.payment.service.PaymentCommandService;
+import com.chbb.theaketing.feature.payment.service.PaymentQueryService;
 import com.chbb.theaketing.feature.reservation.dto.ReservationDto;
 import com.chbb.theaketing.feature.reservation.dto.ReservationDto.ReservationRes;
 import com.chbb.theaketing.feature.reservation.dto.ReservationDto.ReservationSearchReq;
@@ -33,19 +36,28 @@ public class ReservationService {
 
     private final PaymentCommandService paymentCommandService;
 
+    private final PaymentQueryService paymentQueryService;
+
     private final DramaQueryService dramaQueryService;
 
     private final ShowTimeQueryService showTimeQueryService;
 
+    private final ShowTimeCommandService showTimeCommandService;
+
     private final SecurityService securityService;
 
+    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(10);
+
+    @Transactional
     public Long reserve(ReservationDto.ReservationReq req) throws Exception {
-        // TODO 예매하고 일정시간(5분)안에 결제가 안이루어지면
-        // 예매정보를 삭제시키기
+        Long userId = securityService.getUser().getId();
+
+        if (reservationQueryService.existByShowTimeIdAndUserId(req.getShowTimeId(), userId)) {
+            return reservationQueryService.findByShowTimeIdAndUserId(req.getShowTimeId(), userId).getId();
+        }
+        ShowTime time = showTimeQueryService.findByIdWithLock(req.getShowTimeId());
 
         Drama drama = dramaQueryService.findById(req.getDramaId());
-
-        ShowTime time = showTimeQueryService.findById(req.getShowTimeId());
 
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime start = LocalDateTime.of(time.getShowDate(), time.getStartTime());
@@ -53,14 +65,35 @@ public class ReservationService {
             throw new TheaketingException(ErrorCode.RESERVATION_TIME_INVALID);
         }
 
+        // 예매 내역 등록
         Reservation reservation = Reservation.builder()
                 .dramaId(req.getDramaId())
                 .showTimeId(req.getShowTimeId())
                 .ticketCount(req.getTicketCount())
-                .userId(securityService.getUser().getId())
+                .userId(userId)
                 .price(req.getTicketCount() * drama.getPrice())
                 .build();
-        return reservationCommandService.insert(reservation);
+        Long id = reservationCommandService.insert(reservation);
+
+        // 남은 좌석 변경
+        ShowTime update = ShowTime.builder()
+                .id(time.getId())
+                .dramaId(time.getDramaId())
+                .showDate(time.getShowDate())
+                .startTime(time.getStartTime())
+                .endTime(time.getEndTime())
+                .remainSeats(time.getRemainSeats() - req.getTicketCount())
+                .build();
+
+        showTimeCommandService.update(update);
+        // 예매하고 일정시간(3분)안에 결제가 안이루어지면 예매정보를 삭제시키기
+        scheduler.schedule(() -> {
+            try {
+                paymentCheck(id);
+            } catch (Exception e) {
+            }
+        }, 3, TimeUnit.MINUTES);
+        return id;
     }
 
     public Page<ReservationRes> paginate(PageDto page) throws Exception {
@@ -87,6 +120,80 @@ public class ReservationService {
 
         // 예매 내역 삭제
         reservationCommandService.delete(id);
+
+        // 남은 좌석 변경
+        ShowTime update = ShowTime.builder()
+                .id(time.getId())
+                .dramaId(time.getDramaId())
+                .showDate(time.getShowDate())
+                .startTime(time.getStartTime())
+                .endTime(time.getEndTime())
+                .remainSeats(time.getRemainSeats() + reservation.getTicketCount())
+                .build();
+
+        showTimeCommandService.update(update);
+    }
+
+    @Transactional
+    private void paymentCheck(Long id) throws Exception {
+        boolean exist = paymentQueryService.existByReservationId(id);
+        if (exist) {
+            return;
+        }
+        Reservation reservation = reservationQueryService.findByIdWithLock(id);
+        // 예매 내역 삭제
+        reservationCommandService.delete(id);
+
+        ShowTime time = showTimeQueryService.findById(reservation.getShowTimeId());
+        // 남은 좌석 변경
+        ShowTime update = ShowTime.builder()
+                .id(time.getId())
+                .dramaId(time.getDramaId())
+                .showDate(time.getShowDate())
+                .startTime(time.getStartTime())
+                .endTime(time.getEndTime())
+                .remainSeats(time.getRemainSeats() + reservation.getTicketCount())
+                .build();
+
+        showTimeCommandService.update(update);
+    }
+
+    @Transactional
+    public Long testtt(ReservationDto.ReservationReq req, Long userId) throws Exception {
+
+        ShowTime time = showTimeQueryService.findByIdWithLock(req.getShowTimeId());
+
+        Drama drama = dramaQueryService.findById(req.getDramaId());
+
+        // 예매 내역 등록
+        Reservation reservation = Reservation.builder()
+                .dramaId(req.getDramaId())
+                .showTimeId(req.getShowTimeId())
+                .ticketCount(req.getTicketCount())
+                .userId(userId)
+                .price(req.getTicketCount() * drama.getPrice())
+                .build();
+        Long id = reservationCommandService.insert(reservation);
+
+        // 남은 좌석 변경
+        ShowTime update = ShowTime.builder()
+                .id(time.getId())
+                .dramaId(time.getDramaId())
+                .showDate(time.getShowDate())
+                .startTime(time.getStartTime())
+                .endTime(time.getEndTime())
+                .remainSeats(time.getRemainSeats() - req.getTicketCount())
+                .build();
+
+        showTimeCommandService.update(update);
+        // 예매하고 일정시간(3분)안에 결제가 안이루어지면 예매정보를 삭제시키기
+        scheduler.schedule(() -> {
+            try {
+                paymentCheck(id);
+            } catch (Exception e) {
+            }
+        }, 3, TimeUnit.MINUTES);
+        return id;
     }
 
 }

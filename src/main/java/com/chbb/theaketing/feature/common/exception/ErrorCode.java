@@ -8,6 +8,7 @@ public enum ErrorCode {
     // Common
     DATA_NOT_FOUND(404, "C001", "데이터가 존재하지 않습니다."),
     NOT_NULL_PARAMETER(400, "C002", "파라미터가 null입니다."),
+    UNKNOWN(400, "C999", "문제가 발생했습니다."),
 
     // Auth
     EMAIL_SEND_ERROR(400, "A001", "메일 전송에 실패했습니다."),
@@ -15,6 +16,7 @@ public enum ErrorCode {
     WRONG_CODE(400, "A003", "인증코드가 일치하지 않습니다."),
     NOT_EMAIL_AUTHENTICATE(400, "A004", "이메일 인증이 필요합니다."),
     AUTHENTICATION_FAIL(400, "A005", "아이디나 비밀번호가 잘못되었습니다."),
+    EMAIL_DUPLICATE(400, "A006", "사용중인 이메일입니다."),
 
     // Reservation
     RESERVATION_DUPLICATE(400, "R001", "예매 내역이 존재합니다."),

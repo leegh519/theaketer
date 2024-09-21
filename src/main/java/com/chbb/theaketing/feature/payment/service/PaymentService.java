@@ -24,7 +24,8 @@ public class PaymentService {
     private final SecurityService securityService;
 
     public void payment(PaymentDto.PaymentReq req) throws Exception {
-        Reservation reservation = reservationQueryService.findById(req.getReservationId());
+
+        Reservation reservation = reservationQueryService.findByIdWithLock(req.getReservationId());
         if (!reservation.getUserId().equals(securityService.getUser().getId())) {
             throw new TheaketingException(ErrorCode.RESERVATION_NOT_MINE);
         }

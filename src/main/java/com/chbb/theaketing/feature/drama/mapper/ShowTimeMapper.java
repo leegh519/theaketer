@@ -18,4 +18,8 @@ public interface ShowTimeMapper {
 
     public List<DramaTime> findTimesByDramaIdAndDate(DramaTimeSearch req) throws Exception;
 
+    public void update(ShowTime showTime) throws Exception;
+
+    public ShowTime findByIdWithLock(Long id) throws Exception;
+
 }

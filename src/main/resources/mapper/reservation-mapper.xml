@@ -42,13 +42,15 @@
             ,drama_id
             ,show_time_id
             ,ticket_count
-            ,price)
+            ,price
+            ,create_date)
         VALUES
             (#{userId}
             ,#{dramaId}
             ,#{showTimeId}
             ,#{ticketCount}
-            ,#{price})
+            ,#{price}
+            ,now())
     </insert>
 
     <!-- findById --> 
@@ -111,4 +113,36 @@
         FROM    reservation 
         WHERE   id = #{id}
     </delete>        
+
+    <!-- existByShowTimeIdAndUserId --> 
+    <select id="existByShowTimeIdAndUserId" parameterType="com.chbb.theaketing.feature.reservation.entity.Reservation"
+    resultType="boolean">
+        SELECT
+            EXISTS(
+                SELECT  *
+                FROM    reservation
+                WHERE   show_time_id = #{showTimeId}
+                AND     user_id = #{userId}
+            )
+    </select>
+    
+    <!-- findByShowTimeIdAndUserId --> 
+    <select id="findByShowTimeIdAndUserId" parameterType="com.chbb.theaketing.feature.reservation.entity.Reservation"
+    resultType="com.chbb.theaketing.feature.reservation.entity.Reservation">
+        SELECT  *
+        FROM    reservation
+        WHERE   show_time_id = #{showTimeId}
+        AND     user_id = #{userId}
+    </select>    
+
+
+    <!-- findByIdWithLock --> 
+    <select id="findByIdWithLock" parameterType="long" resultType="com.chbb.theaketing.feature.reservation.entity.Reservation">
+        SELECT  *
+        FROM    reservation
+        WHERE   id = #{id}
+        FOR UPDATE
+    </select>   
+
+
 </mapper>

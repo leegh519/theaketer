@@ -17,13 +17,7 @@ public class EntryPoint implements AuthenticationEntryPoint {
             org.springframework.security.core.AuthenticationException authException)
             throws IOException, ServletException {
 
-        String url = request.getRequestURI().toString();
         response.sendError(401, "로그인이 필요합니다");
-        // if (url.contains("/api/")) {
-        // } else {
-        // response.sendRedirect("/login");
-        // }
-
     }
 
 }

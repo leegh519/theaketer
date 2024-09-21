@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.chbb.theaketing.feature.common.exception.ErrorCode;
 import com.chbb.theaketing.feature.common.exception.TheaketingException;
@@ -18,31 +17,12 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
-public class ShowTimeQueryService {
+public class ShowTimeCommandService {
 
     private final ShowTimeMapper showTimeMapper;
 
-    public ShowTime findById(Long id) throws Exception {
-        if (id == null) {
-            throw new TheaketingException(ErrorCode.NOT_NULL_PARAMETER);
-        }
-        ShowTime showTime = showTimeMapper.findById(id);
-        if (showTime == null) {
-            throw new TheaketingException(ErrorCode.DATA_NOT_FOUND);
-        }
-        return showTime;
-    }
-
-    public ShowTime findByIdWithLock(Long id) throws Exception {
-        if (id == null) {
-            throw new TheaketingException(ErrorCode.NOT_NULL_PARAMETER);
-        }
-        ShowTime showTime = showTimeMapper.findByIdWithLock(id);
-        if (showTime == null) {
-            throw new TheaketingException(ErrorCode.DATA_NOT_FOUND);
-        }
-        return showTime;
+    public void update(ShowTime showTime) throws Exception {
+        showTimeMapper.update(showTime);
     }
 
     public List<DramaDate> dramaDate(Long id) throws Exception {

@@ -35,4 +35,22 @@
         WHERE   reservation_id = #{reservationId}
     </delete>
 
+    <!-- findById --> 
+    <select id="findById" parameterType="long" 
+    resultType="com.chbb.theaketing.feature.payment.entity.Payment">
+        SELECT  *
+        FROM    payment
+        WHERE   id = #{id}
+    </select>
+
+    <!-- existById --> 
+    <select id="existByReservationId" parameterType="long"  resultType="boolean">
+         SELECT
+            EXISTS(
+                SELECT  *
+                FROM    payment
+                WHERE   reservation_id = #{id}
+            )
+    </select>
+    
 </mapper>
