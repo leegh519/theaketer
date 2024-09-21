@@ -22,4 +22,10 @@ public interface ReservationMapper {
 
     public void delete(Long id) throws Exception;
 
+    public boolean existByShowTimeIdAndUserId(Reservation reservation) throws Exception;
+
+    public Reservation findByShowTimeIdAndUserId(Reservation reservation) throws Exception;
+
+    public Reservation findByIdWithLock(Long id) throws Exception;
+
 }

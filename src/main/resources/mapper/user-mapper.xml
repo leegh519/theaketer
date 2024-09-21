@@ -27,4 +27,14 @@
 
 
 
+    <!-- existByEmail --> 
+    <select id="existByEmail" parameterType="String" resultType="boolean">
+        SELECT
+            EXISTS(
+                SELECT  *
+                FROM    user
+                WHERE   email = #{email}
+                LIMIT 1
+            )
+    </select>
 </mapper>

@@ -15,7 +15,7 @@ public class AuthDto {
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     @Schema(description = "이메일 인증 요청")
-    public static class EmailAuthReq {
+    public static class EmailReq {
 
         @Email(message = "이메일 형식이 아닙니다")
         @Schema(description = "이메일", requiredMode = RequiredMode.REQUIRED, example = "ghkstoo@naver.com")

@@ -40,9 +40,16 @@ public class AuthController {
         return authService.login(req);
     }
 
+    @PostMapping("/u/v1/auth/duplicate")
+    @Operation(summary = "이메일 중복 확인", description = "이메일 중복 확인")
+    public void emailDuplicateCheck(@RequestBody @Valid AuthDto.EmailReq req) throws Exception {
+        authService.emailDuplicateCheck(req.getEmail());
+        return;
+    }
+
     @PostMapping("/u/v1/auth")
     @Operation(summary = "이메일 인증 요청", description = "이메일 인증 요청")
-    public void emailAuth(@RequestBody @Valid AuthDto.EmailAuthReq req) throws Exception {
+    public void emailAuth(@RequestBody @Valid AuthDto.EmailReq req) throws Exception {
         emailVerifyService.send(req.getEmail());
         return;
     }

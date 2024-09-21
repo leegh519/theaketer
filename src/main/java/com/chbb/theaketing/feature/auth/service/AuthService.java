@@ -8,7 +8,6 @@ import com.chbb.theaketing.feature.common.exception.ErrorCode;
 import com.chbb.theaketing.feature.common.exception.TheaketingException;
 import com.chbb.theaketing.feature.common.redis.RedisRepository;
 import com.chbb.theaketing.feature.user.dto.UserDto;
-import com.chbb.theaketing.feature.user.dto.UserDto.UserInfo;
 import com.chbb.theaketing.feature.user.entity.User;
 import com.chbb.theaketing.feature.user.service.UserCommandService;
 import com.chbb.theaketing.feature.user.service.UserQueryService;
@@ -81,5 +80,11 @@ public class AuthService {
 
     public void logout() {
         securityService.deleteAuthenticate();
+    }
+
+    public void emailDuplicateCheck(String email) throws Exception {
+        if (userQueryService.existByEmail(email)) {
+            throw new TheaketingException(ErrorCode.EMAIL_DUPLICATE);
+        }
     }
 }

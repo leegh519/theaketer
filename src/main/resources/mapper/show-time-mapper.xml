@@ -27,18 +27,32 @@
     resultType="com.chbb.theaketing.feature.drama.dto.DramaDateTimeDto$DramaTime">
         SELECT  s.id
                 ,s.start_time as time
-                ,t.seat_count - 
-                    (SELECT count(*) 
-                    FROM reservation 
-                    WHERE show_time_id = s.id) as remain_seats 
+                ,s.remain_seats
         FROM    show_times s
         JOIN	drama d 
             ON	s.drama_id = d.id
-        JOIN    theater t  
-            ON  d.theater_id = t.id
         WHERE   s.drama_id = #{dramaId}
 		    AND s.show_date = #{showDate}
         ORDER BY    s.start_time asc
 
     </select>    
+
+    <!-- update --> 
+
+    <update id="update" parameterType="com.chbb.theaketing.feature.drama.entity.ShowTime">
+        UPDATE show_times
+        SET
+            remain_seats = #{remainSeats}
+        WHERE   id = #{id}
+
+    </update>
+
+    <!-- findByIdWithLock --> 
+    <select id="findByIdWithLock" parameterType="Long" resultType="com.chbb.theaketing.feature.drama.entity.ShowTime">
+        SELECT      *
+        FROM        show_times
+        WHERE       id = #{id}
+        FOR UPDATE
+    </select>
+    
 </mapper>

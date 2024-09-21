@@ -13,4 +13,8 @@ public interface PaymentMapper {
 
     public void delete(Long reservationId) throws Exception;
 
+    public Payment findById(Long id) throws Exception;
+
+    public boolean existByReservationId(Long id) throws Exception;
+
 }

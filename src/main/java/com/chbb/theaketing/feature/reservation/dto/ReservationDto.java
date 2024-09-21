@@ -13,6 +13,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
 import jakarta.validation.constraints.Min;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -21,6 +23,8 @@ public class ReservationDto {
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     @Schema(description = "연극 예매")
+    @Builder
+    @AllArgsConstructor
     public static class ReservationReq {
 
         @Schema(description = "연극 id", requiredMode = RequiredMode.REQUIRED)

@@ -11,4 +11,6 @@ public interface UserMapper {
 
     public User findByEmail(String email) throws Exception;
 
+    public boolean existByEmail(String email) throws Exception;
+
 }
