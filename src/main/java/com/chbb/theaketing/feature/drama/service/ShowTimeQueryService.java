@@ -34,6 +34,7 @@ public class ShowTimeQueryService {
         return showTime;
     }
 
+    @Transactional(readOnly = false)
     public ShowTime findByIdWithLock(Long id) throws Exception {
         if (id == null) {
             throw new TheaketingException(ErrorCode.NOT_NULL_PARAMETER);

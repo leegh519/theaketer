@@ -33,6 +33,7 @@ public class ReservationQueryService {
         return reservation;
     }
 
+    @Transactional(readOnly = false)
     public Reservation findByIdWithLock(Long id) throws Exception {
         if (id == null) {
             throw new TheaketingException(ErrorCode.NOT_NULL_PARAMETER);
