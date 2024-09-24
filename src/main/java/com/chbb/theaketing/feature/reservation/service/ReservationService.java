@@ -5,7 +5,6 @@ import java.time.temporal.ChronoUnit;
 import java.util.concurrent.*;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.chbb.theaketing.feature.auth.service.SecurityService;
@@ -19,7 +18,6 @@ import com.chbb.theaketing.feature.drama.service.DramaQueryService;
 import com.chbb.theaketing.feature.drama.service.ShowTimeCommandService;
 import com.chbb.theaketing.feature.drama.service.ShowTimeQueryService;
 import com.chbb.theaketing.feature.payment.service.PaymentCommandService;
-import com.chbb.theaketing.feature.payment.service.PaymentQueryService;
 import com.chbb.theaketing.feature.reservation.dto.ReservationDto;
 import com.chbb.theaketing.feature.reservation.dto.ReservationDto.ReservationRes;
 import com.chbb.theaketing.feature.reservation.dto.ReservationDto.ReservationSearchReq;
@@ -37,8 +35,6 @@ public class ReservationService {
 
     private final PaymentCommandService paymentCommandService;
 
-    private final PaymentQueryService paymentQueryService;
-
     private final DramaQueryService dramaQueryService;
 
     private final ShowTimeQueryService showTimeQueryService;
@@ -47,7 +43,7 @@ public class ReservationService {
 
     private final SecurityService securityService;
 
-    private  final ReservationCancelService reservationCancelService;
+    private final ReservationCancelService reservationCancelService;
 
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(10);
 
@@ -109,13 +105,16 @@ public class ReservationService {
         showTimeCommandService.update(update);
     }
 
-   private Long insertReservation(ReservationDto.ReservationReq req, Long userId) throws Exception {
+    private Long insertReservation(ReservationDto.ReservationReq req, Long userId) throws Exception {
         ShowTime time = showTimeQueryService.findByIdWithLock(req.getShowTimeId());
 
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime start = LocalDateTime.of(time.getShowDate(), time.getStartTime());
         if (ChronoUnit.HOURS.between(now, start) < 1) {
             throw new TheaketingException(ErrorCode.RESERVATION_TIME_INVALID);
+        }
+        if (time.getRemainSeats() - req.getTicketCount() < 0) {
+            throw new TheaketingException(ErrorCode.NO_REMAIN_SEATS);
         }
 
         Drama drama = dramaQueryService.findById(req.getDramaId());

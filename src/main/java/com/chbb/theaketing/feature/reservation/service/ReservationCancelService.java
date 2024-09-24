@@ -7,22 +7,21 @@ import com.chbb.theaketing.feature.payment.service.PaymentQueryService;
 import com.chbb.theaketing.feature.reservation.entity.Reservation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
 public class ReservationCancelService {
 
-    private  final PaymentQueryService paymentQueryService;
+    private final PaymentQueryService paymentQueryService;
 
-    private  final ReservationQueryService  reservationQueryService;
+    private final ReservationQueryService reservationQueryService;
 
-    private  final ReservationCommandService reservationCommandService;
+    private final ReservationCommandService reservationCommandService;
 
-    private  final ShowTimeQueryService showTimeQueryService;
+    private final ShowTimeQueryService showTimeQueryService;
 
-    private  final ShowTimeCommandService showTimeCommandService;
+    private final ShowTimeCommandService showTimeCommandService;
 
     @Transactional()
     public void paymentCheck(Long id) throws Exception {
